@@ -3,6 +3,13 @@
 ### Section 1
 Objective : Understand the configuration options in creating a EMR cluster using AWS CLI
 
+
+#####Preparation :
+The dependencies needed for this workshop are packaged here - https://bit.ly/3hOv3eO
+Download this to a temporary location.
+Upload the contents into your S3 Bucket (or create a new bucket)
+
+
 #1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
 ```sh
 aws ec2 create-vpc --cidr-block 10.20.30.0/24 --instance-tenancy default
