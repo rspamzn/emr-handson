@@ -8,7 +8,7 @@ Objective : To understand the configuration options in creating a EMR cluster us
 ### Preparation :
 The dependencies needed for this workshop are packaged here - https://bit.ly/3hOv3eO
 Download this to a temporary location by clicking on the link. Unzip the downloaded file. There will be a parent directry(EMR-Handson-Dependencies) with 3 subdirectories(input, java-example, py-example)
-Create a bucket to hold these files and upload the unzipped content
+Create a bucket to hold these files and upload the unzipped content using the steps below. These files will be used in the last few steps of this section.
 ```sh
 aws s3api create-bucket --bucket emr-handson-<your initials here>
 cd EMR-Handson-Dependencies
