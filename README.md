@@ -16,19 +16,19 @@ aws s3 sync . s3://emr-handson-<your initials here>
 ```
 
 ### Execution Steps :
-1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
+<1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
 ```sh
 aws ec2 create-vpc --cidr-block 10.20.30.0/24 --instance-tenancy default
 aws ec2 create-tags --resources <VPC-ID> --tags Key=Name,Value=vpc-emr-handson
 ```
 
-2. Let’s create a subnet to go along with the VPC, and specify the VPC ID and the range for the subnet. In this example, we will use 10.20.30.0/28.
+<2. Let’s create a subnet to go along with the VPC, and specify the VPC ID and the range for the subnet. In this example, we will use 10.20.30.0/28.
 ```sh
 aws ec2 create-subnet --vpc-id <VPC-ID> --cidr-block 10.20.30.0/28
 aws ec2 create-tags --resources <SUBNET-ID> --tags Key=Name,Value=subnet-emr-handson
 ```
 
-3. We need a route table with a public Internet gateway. We will issue the create-route-table command with the VPC ID from earlier. Next, we will create the default route with the create-route command.
+<3. We need a route table with a public Internet gateway. We will issue the create-route-table command with the VPC ID from earlier. Next, we will create the default route with the create-route command.
 ```sh
 aws ec2 create-route-table --vpc-id <VPC-ID>
 aws ec2 create-tags --resources <ROUTE-TABLE-ID> --tags Key=Name,Value=rtb-emr-handson
@@ -99,3 +99,7 @@ aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
 aws emr add-steps --cluster-id j-1G7IZMXZDF9M1 --steps Type=Spark,ActionOnFailure=CONTINUE,Args=s3://emr-handson-rsp/py-example/Chopaliser.py,s3://emr-handson-rsp/input/chopratings.csv,s3://emr-handson-raja/java-output4
 aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
 ```
+## Section 2
+Objective : To use EMR notebooks to execute a pyspark script. 
+
+
