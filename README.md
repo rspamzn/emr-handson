@@ -1,16 +1,18 @@
 # EMR Hands-on Workshop
 
 ## Section 1
-Objective : Understand the configuration options in creating a EMR cluster using AWS CLI
+Objective : To understand the configuration options in creating a EMR cluster using AWS CLI. We will start creating an EMR cluster from the scratch and add 2 steps in the end.
+![alt text](https://docs.aws.amazon.com/emr/latest/ManagementGuide/images/vpc_with_private_subnet_v3a.png)
 
 
-##Preparation :
+### Preparation :
 The dependencies needed for this workshop are packaged here - https://bit.ly/3hOv3eO
 Download this to a temporary location.
 Upload the input/chopratings.csv file into your S3 Bucket (or create a new bucket)
 Upload the java-example/chopalise-1.0-SNAPSHOT.jar into a Bucket
 
 
+### Execution Steps :
 1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
 ```sh
 aws ec2 create-vpc --cidr-block 10.20.30.0/24 --instance-tenancy default
@@ -89,7 +91,7 @@ aws emr add-steps --cluster-id <CLUSTER-ID> --steps Type=Spark,ActionOnFailure=C
 aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
 ```
 
-14. Submit a step - Spark Java Application. Replace the S3 Paths in the Args parameter before submitting
+14. Submit a step - Spark Python Application. Replace the S3 Paths in the Args parameter before submitting
 ```sh
 aws emr add-steps --cluster-id j-1G7IZMXZDF9M1 --steps Type=Spark,ActionOnFailure=CONTINUE,Args=s3://emr-handson-rsp/py-example/Chopaliser.py,s3://emr-handson-rsp/input/chopratings.csv,s3://emr-handson-raja/java-output4
 aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
