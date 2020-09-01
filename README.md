@@ -1,13 +1,14 @@
 # EMR Hands-on Workshop
 
-### Section 1
+## Section 1
 Objective : Understand the configuration options in creating a EMR cluster using AWS CLI
 
 
-#####Preparation :
+##Preparation :
 The dependencies needed for this workshop are packaged here - https://bit.ly/3hOv3eO
 Download this to a temporary location.
-Upload the contents into your S3 Bucket (or create a new bucket)
+Upload the input/chopratings.csv file into your S3 Bucket (or create a new bucket)
+Upload the java-example/chopalise-1.0-SNAPSHOT.jar into a Bucket
 
 
 #1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
@@ -73,7 +74,7 @@ aws emr create-cluster \
    --applications Name=Spark \
    --ec2-attributes KeyName=emr-handson-keypair,SubnetId=<SUBNET-ID> \
    --release-label emr-6.1.0 \
-   --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m4.xlarge InstanceGroupType=CORE,InstanceCount=2,InstanceType=m3.xlarge
+   --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m4.xlarge InstanceGroupType=CORE,InstanceCount=2,InstanceType=m4.xlarge
 ```
 
 #11. Check the cluster status for "Cluster ready to run steps." (This will show null for the initial few seconds)
@@ -81,10 +82,14 @@ aws emr create-cluster \
 aws emr describe-cluster --cluster-id <CLUSTER-ID> --query Cluster.Status.StateChangeReason.Message
 ```
 
+#12. Submit a step - Spark Java Application. Replace the S3 Paths in the Args parameter before submitting
+```sh
+aws emr add-steps --cluster-id <CLUSTER-ID> --steps Type=Spark,ActionOnFailure=CONTINUE,Args=--class,com.amazonaws.emr.example.Chopaliser,s3://emr-handson-rsp/java-example/chopalise-1.0-SNAPSHOT.jar,s3://emr-handson-rsp/input/chopratings.csv,s3://emr-handson-raja/java-output2
+aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
+```
 
-spark-submit s3://emr-handson-rsp/py-example/Chopaliser.py s3://emr-handson-rsp/input/chopratings.csv s3://emr-handson-rsp/py-output
-spark-submit --class com.amazonaws.emr.example.Chopaliser s3://emr-handson-rsp/java-example/chopalise-1.0-SNAPSHOT.jar s3://emr-handson-rsp/input/chopratings.csv s3://emr-handson-rsp/java-output
-
-
-
-
+#13. Submit a step - Spark Java Application. Replace the S3 Paths in the Args parameter before submitting
+```sh
+aws emr add-steps --cluster-id j-1G7IZMXZDF9M1 --steps Type=Spark,ActionOnFailure=CONTINUE,Args=s3://emr-handson-rsp/py-example/Chopaliser.py,s3://emr-handson-rsp/input/chopratings.csv,s3://emr-handson-raja/java-output4
+aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
+```
