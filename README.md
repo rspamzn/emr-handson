@@ -2,7 +2,7 @@
 
 ## Section 1
 Objective : To understand the configuration options in creating a EMR cluster using AWS CLI. We will start creating an EMR cluster from the scratch and add 2 steps in the end.
-![alt text](https://docs.aws.amazon.com/emr/latest/ManagementGuide/images/vpc_with_private_subnet_v3a.png)
+![alt text](https://docs.aws.amazon.com/emr/latest/ManagementGuide/images/vpc_default_v3a.png)
 
 
 ### Preparation :
