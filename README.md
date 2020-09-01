@@ -48,19 +48,28 @@ aws ec2 describe-vpc-attribute  --vpc-id <VPC-ID> --attribute  enableDnsHostname
 aws ec2 modify-vpc-attribute --vpc-id <VPC-ID> --enable-dns-hostnames
 ```
 
-#9. Finally, we have everything in place to launch a cluster inside of the VPC successfully. We can use the following command to launch a test cluster
+#9. Create EMR Default roles
+```sh
+aws emr create-default-roles
+```
+#10. Create a keypair
+```sh
+aws ec2 create-key-pair --key-name emr-handson-keypair --query 'KeyMaterial' --output text > ~/Downloads/MyKeyPair.pem
+```
+ 
+#10. Finally, we have everything in place to launch a cluster inside of the VPC successfully. We can use the following command to launch a test cluster
 ```sh
 aws emr create-cluster \
    --name emr-handson-cluster \
    --emrfs Consistent=true \
    --use-default-roles \
    --applications Name=Spark \
-   --ec2-attributes KeyName=ea-keypair,SubnetId=<SUBNET-ID> \
+   --ec2-attributes KeyName=emr-handson-keypair,SubnetId=<SUBNET-ID> \
    --release-label emr-6.1.0 \
    --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m4.xlarge InstanceGroupType=CORE,InstanceCount=2,InstanceType=m3.xlarge
 ```
 
-#10. Check the cluster status for "Cluster ready to run steps."
+#11. Check the cluster status for "Cluster ready to run steps." (This will show null for the initial few seconds)
 ```sh
 aws emr describe-cluster --cluster-id <CLUSTER-ID> --query Cluster.Status.StateChangeReason.Message
 ```
