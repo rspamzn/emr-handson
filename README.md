@@ -1,16 +1,18 @@
 # EMR Hands-on Workshop
 
 ## Section 1
-Objective : To understand the configuration options in creating a EMR cluster using AWS CLI. We will start creating an EMR cluster from the scratch and add 2 steps in the end.
+Objective : To understand the configuration options in creating a EMR cluster using AWS CLI. We will start creating an EMR cluster from the scratch and add 2 steps to be executed in the end.
 ![alt text](https://docs.aws.amazon.com/emr/latest/ManagementGuide/images/vpc_default_v3a.png)
 
 
 ### Preparation :
 The dependencies needed for this workshop are packaged here - https://bit.ly/3hOv3eO
-Download this to a temporary location.
-Upload the input/chopratings.csv file into your S3 Bucket (or create a new bucket)
-Upload the java-example/chopalise-1.0-SNAPSHOT.jar into a Bucket
-
+Download this to a temporary location by clicking on the link. Unzip the downloaded file. There will be a parent directry(EMR-Handson-Dependencies) with 3 subdirectories(input, java-example, py-example)
+Create a bucket(ex. emr-handson-<your initials>) to hold these files and synchronise the unzipped content
+```sh
+cd EMR-Handson-Dependencies
+aws s3 sync . s3://emr-handson-<your initials>
+```
 
 ### Execution Steps :
 1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
