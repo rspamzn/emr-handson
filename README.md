@@ -106,7 +106,7 @@ Objective : To use EMR notebooks to execute a pyspark script.
 
 >1. Create a notebook via the AWS console. Navigate to the EMR Service Page and select Notebooks option from the left menu bar. Select the 'Create Notebook' button.
 >    * Provide the Notebook Name.
->    * Select 'Choose an existing cluster' radio button and choose the current active cluster.
+>    * Select 'Choose an existing cluster' radio button and choose the current active cluster created from section 1.
 >    * Leave the rest of the options to default.
 >    * Click on the 'Create Notebook" button at the bottom and wait for the status of the notebook to change to Ready.
 
