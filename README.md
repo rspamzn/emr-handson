@@ -16,7 +16,7 @@ aws s3 sync . s3://emr-handson-<your initials here>
 ```
 
 ### Execution Steps :
->1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please copy the vpc-id from the response
+>1. Our VPC will be a very small range /24, with our subnet space using a /28 netmask. After executing the create-vpc command below, please note down the vpc-id from the response as it will have to be used in other steps. The same goes for the subnet id, route-table id etc in the subsequent steps also.
 ```sh
 aws ec2 create-vpc --cidr-block 10.20.30.0/24 --instance-tenancy default
 aws ec2 create-tags --resources <VPC-ID> --tags Key=Name,Value=vpc-emr-handson
