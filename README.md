@@ -68,7 +68,7 @@ aws emr create-default-roles
 
 >10. Create a keypair
 ```sh
-aws ec2 create-key-pair --key-name emr-handson-keypair --query 'KeyMaterial' --output text > ~/Downloads/MyKeyPair.pem
+aws ec2 create-key-pair --key-name emr-handson-apj-keypair --query 'KeyMaterial' --output text > ~/Downloads/emr-handson-keypair.pem
 ```
  
 >11. Finally, we have everything in place to launch a cluster inside of the VPC successfully. We can use the following command to launch a test cluster. Change the bucket id for logs and the subnet id
@@ -79,7 +79,7 @@ aws emr create-cluster \
    --emrfs Consistent=true \
    --use-default-roles \
    --applications Name=Spark \
-   --ec2-attributes KeyName=emr-handson-keypair,SubnetId=<SUBNET-ID> \
+   --ec2-attributes KeyName=emr-handson-apj-keypair,SubnetId=<SUBNET-ID> \
    --release-label emr-6.1.0 \
    --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m4.xlarge InstanceGroupType=CORE,InstanceCount=2,InstanceType=m4.xlarge
 ```
