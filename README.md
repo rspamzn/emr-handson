@@ -114,5 +114,5 @@ Objective : To use EMR notebooks to execute a pyspark script.
 
 >3. Once the notebook is opened, change the kernel to PySpark by selecting the 'Kernel->Change Kernel' menu on top.
 
->4. Open the notebook codes in (https://github.com/rspamzn/emr-handson/blob/master/notebook/emr-handson-notebook.ipynb). Copy each cell content into the Jupyter notebook and execute by clicking on the Run button on top. Remember to chagne the bucket-ids in the core wherever it appears.
+>4. Open the notebook codes in (https://github.com/rspamzn/emr-handson/blob/master/notebook/emr-handson-notebook.ipynb). Copy each cell content into the Jupyter notebook and execute by clicking on the Run button on top. Remember to chagne the bucket-ids in the code wherever it appears.
 
