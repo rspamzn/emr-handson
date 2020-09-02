@@ -71,7 +71,7 @@ aws emr create-default-roles
 aws ec2 create-key-pair --key-name emr-handson-keypair --query 'KeyMaterial' --output text > ~/Downloads/MyKeyPair.pem
 ```
  
->11. Finally, we have everything in place to launch a cluster inside of the VPC successfully. We can use the following command to launch a test cluster. Change the bucket if for logs and the subnet id
+>11. Finally, we have everything in place to launch a cluster inside of the VPC successfully. We can use the following command to launch a test cluster. Change the bucket id for logs and the subnet id
 ```sh
 aws emr create-cluster \
    --name emr-handson-cluster \
@@ -84,22 +84,23 @@ aws emr create-cluster \
    --instance-groups InstanceGroupType=MASTER,InstanceCount=1,InstanceType=m4.xlarge InstanceGroupType=CORE,InstanceCount=2,InstanceType=m4.xlarge
 ```
 
->12. Check the cluster status for "Cluster ready to run steps." (This will show null for the initial few seconds)
+>12. Check the cluster status for "Cluster ready to run steps." (This will show null for the initial few seconds but that is ok)
 ```sh
 aws emr describe-cluster --cluster-id <CLUSTER-ID> --query Cluster.Status.StateChangeReason.Message
 ```
 
->13. Submit a step - Spark Java Application. Replace the S3 Paths in the Args parameter before submitting
+>13. Submit a step - Spark Java Application. Replace the S3 Paths in the Args parameter before submitting. The last 2 paramters in the Args list are the input file path and the output bucketid
 ```sh
 aws emr add-steps --cluster-id <CLUSTER-ID> --steps Type=Spark,ActionOnFailure=CONTINUE,Args=--class,com.amazonaws.emr.example.Chopaliser,s3://emr-handson-rsp/java-example/chopalise-1.0-SNAPSHOT.jar,s3://emr-handson-rsp/input/chopratings.csv,s3://emr-handson-raja/java-output2
 aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
 ```
 
->14. Submit a step - Spark Python Application. Replace the S3 Paths in the Args parameter before submitting
+>14. Submit a step - Spark Python Application. Replace the S3 Paths in the Args parameter before submitting. The last 2 paramters in the Args list are the input file path and the output bucketid
 ```sh
 aws emr add-steps --cluster-id j-1G7IZMXZDF9M1 --steps Type=Spark,ActionOnFailure=CONTINUE,Args=s3://emr-handson-rsp/py-example/Chopaliser.py,s3://emr-handson-rsp/input/chopratings.csv,s3://emr-handson-raja/java-output4
 aws emr describe-step --cluster-id <CLUSTER-ID> --step-id <STEP-ID>
 ```
+>15. You can validate the results the submitted job by checking the output bucket as mentioned in the parameter. The AWS EMR console also has the history of steps where the status and the logs can be viewed.
 
 ## Section 2
 Objective : To use EMR notebooks to execute a pyspark script. 
